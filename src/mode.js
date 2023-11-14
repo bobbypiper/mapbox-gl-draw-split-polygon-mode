@@ -1,5 +1,5 @@
 import polygonSplitter from "polygon-splitter";
-import { Constants } from "@mapbox/mapbox-gl-draw";
+import { constants } from "@mapbox/mapbox-gl-draw";
 import lineIntersect from "@turf/line-intersect";
 import booleanDisjoint from "@turf/boolean-disjoint";
 import lineOffset from "@turf/line-offset";
@@ -41,8 +41,8 @@ SplitPolygonMode.onSetup = function (opt) {
       selectedFeatures
         .filter(
           (f) =>
-            f.type === Constants.geojsonTypes.POLYGON ||
-            f.type === Constants.geojsonTypes.MULTI_POLYGON
+            f.type === constants.geojsonTypes.POLYGON ||
+            f.type === constants.geojsonTypes.MULTI_POLYGON
         )
         .map((f) => f.toGeoJSON())
     );
@@ -61,7 +61,7 @@ SplitPolygonMode.onSetup = function (opt) {
   };
 
   /// `onSetup` job should complete for this mode to work.
-  /// so `setTimeout` is used to bupass mode change after `onSetup` is done executing.
+  /// so `setTimeout` is used to bypass mode change after `onSetup` is done executing.
   setTimeout(this.drawAndSplit.bind(this, state), 0);
   this.highlighFeatures(state);
 
@@ -126,7 +126,7 @@ SplitPolygonMode.toDisplayFeatures = function (state, geojson, display) {
 };
 
 SplitPolygonMode.fireUpdate = function (newF) {
-  this.map.fire(Constants.events.UPDATE, {
+  this.map.fire(constants.events.UPDATE, {
     action: modeName,
     features: newF,
   });
@@ -155,9 +155,9 @@ function polygonCutWithSpacing(poly, line, options) {
   if (
     typeof line_width === "undefined" ||
     typeof line_width_unit === "undefined" ||
-    (poly.type != Constants.geojsonTypes.POLYGON &&
-      poly.type != Constants.geojsonTypes.MULTI_POLYGON) ||
-    line.type != Constants.geojsonTypes.LINE_STRING
+    (poly.type != constants.geojsonTypes.POLYGON &&
+      poly.type != constants.geojsonTypes.MULTI_POLYGON) ||
+    line.type != constants.geojsonTypes.LINE_STRING
   ) {
     return retVal;
   }
